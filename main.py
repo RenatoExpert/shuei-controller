@@ -1,5 +1,3 @@
-#!env/bin/python3
-
 from flask import Flask
 
 #   Serves the web-interface
