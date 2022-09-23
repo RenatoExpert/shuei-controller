@@ -6,4 +6,4 @@ echo 'Activating virtual enviroment'		&& \
 . env/bin/activate				&& \
 echo 'Installing dependencies'			&& \
 python3 -m pip install -r requirements.txt	&& \
-flask --app main run --host=0.0.0.0	
+flask --app januspi run
