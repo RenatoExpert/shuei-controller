@@ -4,7 +4,6 @@ import os
 from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
-print ('working')
 access_point = pyaccesspoint.AccessPoint(wlan='wlan1', ssid='Janus')
 access_point.start()
 access_point.is_running()
@@ -12,7 +11,7 @@ access_point.is_running()
 
 #   Serves the web-interface
 def create_app (test_config=None):
-    app = Flask(__name__, template_folder='web')
+    app = Flask(__name__, template_folder='web', instance_relative_config=True)
     app.config.from_mapping(
             SECRET_KEY='dev',
             DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite')
@@ -36,6 +35,8 @@ def create_app (test_config=None):
     @app.route("/its_ip")
     def its_ip():
         return socket.gethostbyname(socket.gethostname())
+
+    return app
 
 #   "Lib": Functions that controls the GPIO
 
