@@ -1,5 +1,14 @@
 from flask import Flask, render_template
 import socket
+from PyAccessPoint import pyaccesspoint
+
+#   First use: make wireless hotspot
+def __init__():
+    print ('working')
+    access_point = pyaccesspoint.AccessPoint(wlan='wlan1', ssid='Janus')
+    access_point.start()
+    access_point.is_running()
+# access_point.stop()
 
 #   Serves the web-interface
 app = Flask(__name__, template_folder='web')
