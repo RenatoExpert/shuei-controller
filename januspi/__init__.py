@@ -36,6 +36,9 @@ def create_app (test_config=None):
     def its_ip():
         return socket.gethostbyname(socket.gethostname())
 
+    from . import db
+    db.init_app(app)
+
     return app
 
 #   "Lib": Functions that controls the GPIO
