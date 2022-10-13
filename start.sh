@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'Self update'
+git pull
 echo 'Asuring virtual enviroment'		&& \
 python3 -m venv env				&& \
 echo 'Activating virtual enviroment'		&& \
