@@ -36,6 +36,29 @@ def create_app (test_config=None):
     def its_ip():
         return socket.gethostbyname(socket.gethostname())
 
+    #   As defined
+
+    @app.route("/reboot")
+    def reboot():
+        return "It should reboot this host"
+
+    @app.route("/reload")
+    def reload():
+        return "It may reset janus daemon"
+
+    @app.route("/upgrade")
+    def upgrade():
+        return "That may upgrade janus version"
+
+    @app.route("/getstate")
+    def getstate(): #   Missing argument for gpio
+        return "Returns if a GPIO pin is HIGH or LOW"
+
+    @app.route("/setstate")
+    def setstate(): #   Missing argument for gpio
+        return "Make a GPIO pin as HIGH or LOW"
+
+
     from . import db
     db.init_app(app)
 
