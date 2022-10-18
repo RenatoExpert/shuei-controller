@@ -40,7 +40,7 @@ def create_app (test_config=None):
 
     @app.route("/reboot")
     def reboot():
-        return "It should reboot this host"
+        return os.system("reboot")
 
     @app.route("/reload")
     def reload():
@@ -48,7 +48,7 @@ def create_app (test_config=None):
 
     @app.route("/upgrade")
     def upgrade():
-        return "That may upgrade janus version"
+        return str(os.system("git pull"))
 
     @app.route("/getstate")
     def getstate(): #   Missing argument for gpio
