@@ -59,13 +59,14 @@ def create_app (test_config=None):
     def upgrade():
         return str(os.system("git pull"))
 
-    @app.route("/getstate")
-    def getstate(): #   Missing argument for gpio
-        return "Returns if a GPIO pin is HIGH or LOW"
+    @app.route("/getstate/<int:pin>")
+    def getstate(pin):
+        return str(GPIO.input(pin))
 
-    @app.route("/setstate")
-    def setstate(): #   Missing argument for gpio
-        return "Make a GPIO pin as HIGH or LOW"
+    @app.route("/setstate/<int:pin>/<int:bool_value>")
+    def setstate(pin, bool_value):
+        value = GPIO.HIGH if bool_value==1 else GPIO.LOW
+        return str(GPIO.output(pin, value))
 
 
     from . import db
