@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import RPi.GPIO as GPIO
 import socket
 import os
 #from PyAccessPoint import pyaccesspoint
@@ -8,6 +9,14 @@ import os
 #access_point.start()
 #access_point.is_running()
 # access_point.stop()
+
+#   Setting GPIO pins
+GPIO.setmode(2,GPIO.IN)
+GPIO.setmode(3,GPIO.OUT)
+GPIO.setmode(23,GPIO.IN)
+GPIO.setmode(24,GPIO.OUT)
+GPIO.setmode(5,GPIO.IN)
+GPIO.setmode(6,GPIO.OUT)
 
 #   Serves the web-interface
 def create_app (test_config=None):
