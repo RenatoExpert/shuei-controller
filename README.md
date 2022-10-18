@@ -11,3 +11,13 @@
 8.	Choose an operation mode (Master or slave).
 	In case of slave mode, point its master address
 9.	Save and Reset
+
+## API - Control it with POST http requests
+Command		Request			Description
+reboot		/reboot			Reboot Device
+reload		/reload			Restart Janus Daemon
+upgrade		/upgrade		Upgrade Daemon Version
+getstate	/getstate?gpio=N	Returns status from a GPIO pin
+setstate	/setstate?gpio=N	Set GPIO pin as HIGH or LOW
+
+
