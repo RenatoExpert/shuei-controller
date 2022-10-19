@@ -11,6 +11,7 @@ import os
 # access_point.stop()
 
 #   Setting GPIO pins
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(2,GPIO.IN)
 GPIO.setup(3,GPIO.OUT)
 GPIO.setup(23,GPIO.IN)
