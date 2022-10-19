@@ -7,7 +7,7 @@ cp */* -rv /usr/bin/janusd
 echo "Executables installed with success"
 
 echo "Setting up daemon..."
-cp janusd.service /etc/systemd/system/ 
+cp janus-controller/janusd.service /etc/systemd/system/ 
 systemctl daemon-reload 
 systemctl enable janusd 
 systemctl start janusd 
