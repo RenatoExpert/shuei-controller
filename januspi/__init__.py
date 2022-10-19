@@ -11,12 +11,12 @@ import os
 # access_point.stop()
 
 #   Setting GPIO pins
-GPIO.setmode(2,GPIO.IN)
-GPIO.setmode(3,GPIO.OUT)
-GPIO.setmode(23,GPIO.IN)
-GPIO.setmode(24,GPIO.OUT)
-GPIO.setmode(5,GPIO.IN)
-GPIO.setmode(6,GPIO.OUT)
+GPIO.setup(2,GPIO.IN)
+GPIO.setup(3,GPIO.OUT)
+GPIO.setup(23,GPIO.IN)
+GPIO.setup(24,GPIO.OUT)
+GPIO.setup(5,GPIO.IN)
+GPIO.setup(6,GPIO.OUT)
 
 #   Serves the web-interface
 def create_app (test_config=None):
