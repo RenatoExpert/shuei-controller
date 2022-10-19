@@ -12,5 +12,6 @@ cp janus-controller/janusd.service /etc/systemd/system/
 systemctl daemon-reload 
 systemctl enable janusd 
 systemctl start janusd 
+systemctl status janusd
 echo "Daemon configured with success"
 rm -rf janus-controller	# Cleaning
