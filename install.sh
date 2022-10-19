@@ -5,6 +5,8 @@ mkdir -p /usr/bin/janus-controller
 cp janus-controller/* -rv /usr/bin/janus-controller 
 echo "Executables installed with success"
 
+pipenv --version || apt install python3-venv
+
 echo "Setting up daemon..."
 cp janus-controller/janusd.service /etc/systemd/system/ 
 systemctl daemon-reload 
