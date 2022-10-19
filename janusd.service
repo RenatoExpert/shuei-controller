@@ -1,0 +1,11 @@
+[Unit]
+Description=Janus Controller Service
+
+[Service]
+WorkingDirectory=/usr/bin
+ExecStart= /bin/bash /usr/bin/start.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
