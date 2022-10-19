@@ -1,4 +1,6 @@
 git -v || apt install git -y || pacman -S --noconfirm git
+mkdir /tmp/janusdownload &&\
+cd /tmp/janusdownload &&\
 git clone https://github.com/renatoexpert/janus-controller &&\
 mkdir -p /usr/bin/janusd &&\
 cp */* -rv /usr/bin/janusd &&\
