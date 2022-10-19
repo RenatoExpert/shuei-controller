@@ -12,6 +12,12 @@
 	In case of slave mode, point its master address
 9.	Save and Reset
 
+## Install on raspberry pi
+Copy and paste on terminal
+```
+https://raw.githubusercontent.com/RenatoExpert/janus-controller/main/install.sh | sh
+```
+
 ## API - Control it with POST http requests
 Command		Request			Description
 reboot		/reboot			Reboot Device
