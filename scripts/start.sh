@@ -2,7 +2,7 @@
 
 cd /bin/janus-controller
 echo 'Self update'
-git pull
+./scripts/upgrade.sh 
 echo 'Asuring virtual enviroment'		&& \
 python3 -m venv env				&& \
 echo 'Activating virtual enviroment'		&& \

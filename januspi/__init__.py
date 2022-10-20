@@ -21,7 +21,7 @@ GPIO.setup(6,GPIO.OUT)
 
 #   Upgrade
 def upgrade():
-    command = os.system("./bin/janus-controller/scripts/upgrade")
+    command = os.system(". /bin/janus-controller/scripts/upgrade")
     return str(command)
 
 #   Serves the web-interface
