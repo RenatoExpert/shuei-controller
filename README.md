@@ -30,8 +30,8 @@ setstate	| /setstate?gpio=N	| Set GPIO pin as HIGH or LOW
 ## Development progress
 - [x] Install with sh
 - [x] Response to GET /
-- [ ] Daemon working (doing those two above)
-- [ ] Start on boot automatically
+- [x] Daemon working
+- [x] Start on boot automatically
 - [ ] Wifi hotspot on first use
 - [ ] Update from github
 - [ ] GPIO pins responds to API calls
