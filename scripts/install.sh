@@ -8,7 +8,7 @@ echo "Executables installed with success"
 pipenv --version || apt install -y python3-venv
 
 echo "Setting up daemon..."
-cp janus-controller/janusd.service /etc/systemd/system/ 
+cp janus-controller/systemd/janusd.service /etc/systemd/system/ 
 systemctl daemon-reload 
 systemctl enable janusd 
 systemctl start janusd 
