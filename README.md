@@ -35,4 +35,5 @@ setstate	| /setstate?gpio=N	| Set GPIO pin as HIGH or LOW
 - [ ] Update from github
 - [ ] GPIO pins responds to API calls
 - [ ] GPIO pins reading response using API calls
-
+- [ ] Package .deb
+- [ ] Dockerize
