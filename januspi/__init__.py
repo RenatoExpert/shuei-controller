@@ -58,7 +58,7 @@ def create_app (test_config=None):
 
     @app.route("/upgrade")
     def upgrade():
-        return str(os.system("git pull"))
+        return str(os.system("pwd"))
 
     @app.route("/getstate/<int:pin>")
     def getstate(pin):
