@@ -20,7 +20,7 @@ https://raw.githubusercontent.com/RenatoExpert/janus-controller/main/install.sh 
 
 ## API - Control it with POST http requests
 Command		|Request		| Description
---------	|-----------		| ----------
+:--------:	|:-----------		| :----------
 reboot		| /reboot		| Reboot Device
 reload		| /reload		| Restart Janus Daemon
 upgrade		| /upgrade		| Upgrade Daemon Version
