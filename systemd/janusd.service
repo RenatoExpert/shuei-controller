@@ -3,7 +3,7 @@ Description=Janus Controller Service
 
 [Service]
 WorkingDirectory=/usr/bin
-ExecStart= /bin/bash /usr/bin/janus-controller/start.sh
+ExecStart= /bin/bash /usr/bin/janus-controller/scripts/start.sh
 Restart=always
 RestartSec=10
 
