@@ -8,8 +8,9 @@
 5.	Open your browser at '192.168.0.1'
 6.	A setup screen is going to appear
 7.	Set your wireless network
-8.	Choose an operation mode (Master or slave).
-	In case of slave mode, point its master address
+8.	 ~~Choose an operation mode (Master or slave).
+	In case of slave mode, point its master address~~ <br>
+	Not using master-slave flexible model anymore
 9.	Save and Reset
 
 ## Install on raspberry pi
