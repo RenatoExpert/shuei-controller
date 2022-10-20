@@ -37,3 +37,4 @@ setstate	| /setstate?gpio=N	| Set GPIO pin as HIGH or LOW
 - [ ] GPIO pins reading response using API calls
 - [ ] Package .deb
 - [ ] Dockerize
+- [ ] Read-to-go iso for Raspberry Pi
