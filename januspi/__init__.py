@@ -19,6 +19,11 @@ GPIO.setup(24,GPIO.OUT)
 GPIO.setup(5,GPIO.IN)
 GPIO.setup(6,GPIO.OUT)
 
+#   Upgrade
+def upgrade():
+    command = os.system("./bin/janus-controller/scripts/upgrade")
+    return str(command)
+
 #   Serves the web-interface
 def create_app (test_config=None):
     app = Flask(__name__, template_folder='web', instance_relative_config=True)
@@ -58,7 +63,7 @@ def create_app (test_config=None):
 
     @app.route("/upgrade")
     def upgrade():
-        return str(os.system("pwd"))
+        return upgrade()
 
     @app.route("/getstate/<int:pin>")
     def getstate(pin):
