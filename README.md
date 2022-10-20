@@ -15,7 +15,7 @@
 ## Install on raspberry pi
 Copy and paste on terminal
 ```
-https://raw.githubusercontent.com/RenatoExpert/janus-controller/main/install.sh | sh
+curl https://raw.githubusercontent.com/RenatoExpert/janus-controller/main/scripts/install.sh | sh
 ```
 
 ## API - Control it with POST http requests
