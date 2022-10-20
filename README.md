@@ -34,8 +34,8 @@ setstate	| /setstate?gpio=N	| Set GPIO pin as HIGH or LOW
 - [x] Start on boot automatically
 - [ ] Wifi hotspot on first use
 - [x] Self-update from github
-- [ ] GPIO pins responds to API calls
-- [ ] GPIO pins reading response using API calls
+- [x] GPIO pins responds to API calls
+- [x] GPIO pins reading response using API calls
 - [ ] Package .deb
 - [ ] Dockerize
 - [ ] Read-to-go iso for Raspberry Pi
