@@ -19,13 +19,13 @@ curl https://raw.githubusercontent.com/RenatoExpert/janus-controller/main/script
 ```
 
 ## API - Control it with POST http requests
-Command		|Request		| Description
-:--------:	|:-----------		| :----------
-reboot		| /reboot		| Reboot Device
-reload		| /reload		| Restart Janus Daemon
-upgrade		| /upgrade		| Upgrade Daemon Version
-getstate	| /getstate?gpio=N	| Returns status from a GPIO pin
-setstate	| /setstate?gpio=N	| Set GPIO pin as HIGH or LOW
+Command		|Request			| Description
+:--------:	|:-----------			| :----------
+reboot		| /reboot			| Reboot Device
+reload		| /reload			| Restart Janus Daemon
+upgrade		| /upgrade			| Upgrade Daemon Version
+getstate	| /getstate/gpio\_pin		| Returns status from a GPIO pin
+setstate	| /setstate/gpio\_pin\state	| Set GPIO pin as HIGH or LOW
 
 ## Development progress
 - [x] Install with sh
