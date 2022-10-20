@@ -27,4 +27,12 @@ upgrade		| /upgrade		| Upgrade Daemon Version
 getstate	| /getstate?gpio=N	| Returns status from a GPIO pin
 setstate	| /setstate?gpio=N	| Set GPIO pin as HIGH or LOW
 
+## Development progress
+- [x] Install with sh
+- [x] Response to GET /
+- [] Daemon working (doing those two above)
+- [] Start on boot automatically
+- [] Update from github
+- [] GPIO pins responds to API calls
+- [] GPIO pins reading response using API calls
 
