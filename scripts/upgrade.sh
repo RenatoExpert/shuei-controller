@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /bin/janus-controller
-git pull
+git pull --rebase
