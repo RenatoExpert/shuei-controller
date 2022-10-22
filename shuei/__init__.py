@@ -21,7 +21,7 @@ GPIO.setup(6,GPIO.OUT)
 
 #   Upgrade
 def upgrade():
-    command = os.system(". /bin/janus-controller/scripts/upgrade")
+    command = os.system(". /bin/shuei-controller/scripts/upgrade")
     return str(command)
 
 #   Serves the web-interface
@@ -59,7 +59,7 @@ def create_app (test_config=None):
 
     @app.route("/reload")
     def reload():
-        return "It may reset janus daemon"
+        return "It may reset shuei daemon"
 
     @app.route("/upgrade")
     def upgrade():
@@ -84,5 +84,5 @@ def create_app (test_config=None):
 
 #   Handler between Client and GPIO
 
-#   Slave mode (comunicates to another janus controller)
+#   Slave mode (comunicates to another shuei controller)
 
