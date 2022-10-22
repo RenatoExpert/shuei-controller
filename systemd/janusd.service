@@ -1,9 +1,9 @@
 [Unit]
-Description=Janus Controller Service
+Description=Shuei Controller Service
 
 [Service]
 WorkingDirectory=/usr/bin
-ExecStart= /bin/bash /usr/bin/janus-controller/scripts/start.sh
+ExecStart= /bin/bash /usr/bin/shuei-controller/scripts/start.sh
 Restart=always
 RestartSec=10
 

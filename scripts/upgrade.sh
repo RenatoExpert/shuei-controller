@@ -1,4 +1,4 @@
 #!/bin/bash
-cd /bin/janus-controller
+cd /bin/shuei-controller
 git pull --rebase
-cp -v systemd/janusd.service /etc/systemd/system
+cp -v systemd/shueid.service /etc/systemd/system
