@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /bin/janus-controller
+cd /bin/shuei-controller
 echo 'Self update'
 ./scripts/upgrade.sh 
 echo 'Asuring virtual enviroment'		&& \
@@ -9,5 +9,5 @@ echo 'Activating virtual enviroment'		&& \
 . env/bin/activate				&& \
 echo 'Installing dependencies'			&& \
 python3 -m pip install -r \
-	/bin/janus-controller/requirements.txt	&& \
-flask --app januspi run --host=0.0.0.0
+	/bin/shuei-controller/requirements.txt	&& \
+flask --app shuei run --host=0.0.0.0
