@@ -1,4 +1,4 @@
-# Shuei Controller 守衛コントローラ
+# Shuei Controller 守衛 コントローラ
 ## Setup a new device
 1.	Download ISO from https://
 2.	Copy the content to a storage device (SD card is prefered)
