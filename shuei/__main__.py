@@ -1,6 +1,7 @@
 #import RPi.GPIO as GPIO
 import socket
 import os
+import time
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
@@ -44,5 +45,8 @@ def sync():
     print('Server', repr(data))
 
 if __name__ == "__main__":
-    sync()
+    while True:
+        sync()
+        time.sleep(1)
+
 
