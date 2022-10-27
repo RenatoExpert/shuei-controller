@@ -46,7 +46,13 @@ def sync():
 
 if __name__ == "__main__":
     while True:
-        sync()
-        time.sleep(1)
+        try:
+            sync()
+        except ConnectionRefusedError:
+            print("Connection refused, trying again...")
+        except:
+            print("Unknown error")
+        finally:
+            time.sleep(1)
 
 
