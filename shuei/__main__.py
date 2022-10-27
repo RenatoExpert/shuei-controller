@@ -39,10 +39,16 @@ def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host,port))
     s.send(b'{ "uuid":"j324u", "gstatus":"333" }\n')
-    data = s.recv(1024)
-    s.send(b'0')
+    data = s.recv(1024).decode('UTF-8')
+    print('Server:', data)
+    match data:
+        case 0:
+            s.send(b'0')
+        case 1:
+            s.send(b'0')
+        case _:
+            raise Exception(f"Unknow command {data}")
     s.close()
-    print('Server:', data.decode('UTF-8'))
 
 if __name__ == "__main__":
     while True:
