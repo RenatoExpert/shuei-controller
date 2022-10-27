@@ -41,10 +41,18 @@ def sync():
     s.send(b'{ "uuid":"j324u", "gstatus":"333" }\n')
     data = s.recv(1024).decode('UTF-8')
     print('Server:', data)
-    match int(data):
-        case 0:
+    match command:
+        case 'reboot':
             s.send(b'0')
-        case 1:
+        case 'reload':
+            s.send(b'0')
+        case 'upgrade':
+            s.send(b'0')
+        case 'getstate':
+            s.send(b'0')
+        case 'setstate':
+            s.send(b'0')
+        case 'rest':
             s.send(b'0')
         case _:
             raise Exception(f"Unknow command {data}")
