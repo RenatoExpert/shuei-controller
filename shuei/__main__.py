@@ -2,6 +2,7 @@
 import socket
 import os
 import time
+import json
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
@@ -39,9 +40,12 @@ def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host,port))
     s.send(b'{ "uuid":"j324u", "gstatus":"333" }\n')
-    data = s.recv(1024).decode('UTF-8')
-    print('Server:', data)
-    match command:
+    command = json.loads(s.recv(1024).decode('UTF-8'))
+    print(command)
+    cmd = command['cmd']
+    print(cmd)
+    print('Server:', cmd)
+    match cmd:
         case 'reboot':
             s.send(b'0')
         case 'reload':
@@ -64,8 +68,8 @@ if __name__ == "__main__":
             sync()
         except ConnectionRefusedError:
             print("Connection refused, trying again...")
-        except:
-            print("Unknown error")
+        except Exception as err:
+            print("Unknown error", err)
         finally:
             time.sleep(1)
 
