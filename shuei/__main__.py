@@ -42,7 +42,7 @@ def sync():
     data = s.recv(1024)
     s.send(b'0')
     s.close()
-    print('Server', repr(data))
+    print('Server:', data.decode('UTF-8'))
 
 if __name__ == "__main__":
     while True:
