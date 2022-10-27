@@ -41,7 +41,7 @@ def sync():
     s.send(b'{ "uuid":"j324u", "gstatus":"333" }\n')
     data = s.recv(1024).decode('UTF-8')
     print('Server:', data)
-    match data:
+    match int(data):
         case 0:
             s.send(b'0')
         case 1:
