@@ -49,7 +49,7 @@ host = 'localhost'
 def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host,port))
-    s.send(b'{ "uuid":"j324u", "gstatus":"333" }\n')
+    s.send(b'{ "type":"controller", "uuid":"j324u", "gstatus":"333" }\n')
     command = json.loads(s.recv(1024).decode('UTF-8'))
     print(command)
     cmd = command['cmd']
