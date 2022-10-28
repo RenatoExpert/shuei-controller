@@ -3,6 +3,7 @@ import socket
 import os
 import time
 import json
+import subprocess
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
@@ -28,8 +29,17 @@ def get_uuid():
 
 #   Upgrade
 def upgrade():
-    command = os.system(". /bin/shuei-controller/scripts/upgrade")
-    return str(command)
+    try:
+        proc = subprocess.Popen(
+                [".", "/bin/shuei-controller/scripts/upgrade"],
+                stdout = subprocess.PIPE,
+                stderr = subprocess.PIPE,
+                text=True
+        )
+        return str(proc.returncode)
+    except Exception as err:
+        print('Error here:', err.errno)
+        return f'{err.errno}'
 
 #   Serves the web-interface
 
@@ -51,7 +61,9 @@ def sync():
         case 'reload':
             s.send(b'0')
         case 'upgrade':
-            s.send(b'0')
+            s.send(
+                    bytes(upgrade(),'UTF-8')
+            )
         case 'getstate':
             s.send(b'0')
         case 'setstate':
