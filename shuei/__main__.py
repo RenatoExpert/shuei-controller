@@ -75,10 +75,11 @@ def sync():
     command = json.loads(recpak)
     cmd = ''
     args = {}
+    pair_id = ''
     if 'args' in command.keys():
         args = command['args']
-        if 'gpio' in args.keys():
-            gpio = args['gpio']
+        if 'pair_id' in args.keys():
+            pair_id = args['pair_id']
     if 'cmd' in command.keys():
         cmd = command['cmd']
         match cmd:
@@ -88,13 +89,13 @@ def sync():
                 s.send(b'0')
             case 'upgrade':
                 s.send(
-                    bytes(upgrade(),'UTF-8')
+                    bytes(upgrade()+"\n",'UTF-8')
                 )
             case 'setstate':
                 s.send(b'0')
             case 'revertstate':
-                reverse = not GPIO.input(gpio)
-                GPIO.output(gpio, reverse)
+                reverse = not GPIO.input(pair_id)
+                GPIO.output(pair_id, reverse)
             case 'rest':
                 pass
             case _:
