@@ -7,8 +7,8 @@ import sys
 
 #   Server
 port = 2000
-#host = 'shuei.shogunautomacao.com.br'
-host = 'localhost'
+host = 'shuei.shogunautomacao.com.br'
+#host = 'localhost'
 
 #   GPIO
 if '--fakegpio' in sys.argv:
