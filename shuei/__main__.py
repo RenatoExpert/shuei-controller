@@ -7,7 +7,8 @@ import sys
 
 #   Server
 port = 2000
-host = 'shuei.shogunautomacao.com.br'
+#host = 'shuei.shogunautomacao.com.br'
+host = 'localhost'
 
 #   GPIO
 if '--fakegpio' in sys.argv:
@@ -58,24 +59,21 @@ def get_gstatus():
     for item in readlist:
         agregate = '1' if GPIO.input(item) else '0'
         gstatus += agregate
-    print(gstatus)
     return gstatus 
 
 def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     gstatus = get_gstatus()
-    s.connect((host,port))
-    print('how', gstatus)
+    server = s.connect((host,port))
     status_send = json.dumps({ 
         "type":"controller",
         "uuid":"j324u",
         "gstatus":gstatus
     })
-    s.send(bytes(status_send, 'UTF-8'))
-    command = json.loads(s.recv(1024).decode('UTF-8'))
-    print(command)
+    s.send(bytes(status_send+"\n", 'UTF-8'))
+    recpak = s.recv(1024)
+    command = json.loads(recpak)
     cmd = command['cmd']
-    print(cmd)
     print('Server:', cmd)
     match cmd:
         case 'reboot':
@@ -89,7 +87,7 @@ def sync():
         case 'setstate':
             s.send(b'0')
         case 'rest':
-            s.send(b'0')
+            pass
         case _:
             raise Exception(f"Unknow command {data}")
     s.close()
