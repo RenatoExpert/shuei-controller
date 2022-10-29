@@ -11,16 +11,17 @@ host = 'shuei.shogunautomacao.com.br'
 
 #   GPIO
 if '--fakegpio' in sys.argv:
-    import fakegpio as GPIO
+    from fakegpio import GPIO
 else:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(2,GPIO.IN)
-    GPIO.setup(3,GPIO.OUT)
-    GPIO.setup(23,GPIO.IN)
-    GPIO.setup(24,GPIO.OUT)
-    GPIO.setup(5,GPIO.IN)
-    GPIO.setup(6,GPIO.OUT)
+
+GPIO.setup(2,GPIO.IN)
+GPIO.setup(3,GPIO.OUT)
+GPIO.setup(23,GPIO.IN)
+GPIO.setup(24,GPIO.OUT)
+GPIO.setup(5,GPIO.IN)
+GPIO.setup(6,GPIO.OUT)
 
 #from PyAccessPoint import pyaccesspoint
 
