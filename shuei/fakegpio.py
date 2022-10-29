@@ -11,4 +11,4 @@ class fakegpio:
         else: pins[pin][state] = state
     def input (pin):
         return pins[pin][state]
-
+GPIO = fakegpio()
