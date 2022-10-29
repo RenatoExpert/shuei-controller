@@ -67,6 +67,8 @@ def get_gstatus():
 
 def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    def exit_code(arg):
+        s.send(bytes(f'{arg}\n', 'UTF-8'))
     gstatus = get_gstatus()
     server = s.connect((host,port))
     status_send = json.dumps({ 
@@ -101,11 +103,13 @@ def sync():
                 wpin = pairs[pair_id].wp
                 reverse = not GPIO.input(wpin)
                 GPIO.output(wpin, reverse)
+                exit_code(0)
             case 'rest':
                 pass
             case _:
                 raise Exception(f"Unknow command {data}")
     s.close()
+
 
 if __name__ == "__main__":
     while True:
