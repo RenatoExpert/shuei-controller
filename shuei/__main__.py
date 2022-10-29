@@ -82,7 +82,7 @@ def sync():
     if 'args' in command.keys():
         args = command['args']
         if 'pair_id' in args.keys():
-            pair_id = args['pair_id']
+            pair_id = int(args['pair_id'])
     if 'cmd' in command.keys():
         cmd = command['cmd']
         match cmd:
