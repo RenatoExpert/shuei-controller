@@ -59,8 +59,8 @@ def upgrade():
 
 def get_gstatus():
     gstatus = ''
-    for item in readlist:
-        agregate = '1' if GPIO.input(item) else '0'
+    for pair in pairs:
+        agregate = '1' if GPIO.input(pair.rp) else '0'
         gstatus += agregate
     return gstatus 
 
