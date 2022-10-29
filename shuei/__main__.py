@@ -1,9 +1,27 @@
-#import RPi.GPIO as GPIO
 import socket
 import os
 import time
 import json
 import subprocess
+import sys
+
+#   Server
+port = 2000
+host = 'shuei.shogunautomacao.com.br'
+
+#   GPIO
+if '--fakegpio' in sys.argv:
+    import fakegpio as GPIO
+else:
+    import RPi.GPIO as GPIO
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(2,GPIO.IN)
+    GPIO.setup(3,GPIO.OUT)
+    GPIO.setup(23,GPIO.IN)
+    GPIO.setup(24,GPIO.OUT)
+    GPIO.setup(5,GPIO.IN)
+    GPIO.setup(6,GPIO.OUT)
+
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
@@ -12,16 +30,6 @@ import subprocess
 #access_point.is_running()
 # access_point.stop()
 
-"""
-#   Setting GPIO pins
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(2,GPIO.IN)
-GPIO.setup(3,GPIO.OUT)
-GPIO.setup(23,GPIO.IN)
-GPIO.setup(24,GPIO.OUT)
-GPIO.setup(5,GPIO.IN)
-GPIO.setup(6,GPIO.OUT)
-"""
 
 #   Get uuid
 def get_uuid():
@@ -41,11 +49,6 @@ def upgrade():
         print('Error here:', err.errno)
         return f'{err.errno}'
 
-#   Serves the web-interface
-
-#   Keep synchronizing with Server
-port = 2000
-host = 'localhost'
 def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host,port))
