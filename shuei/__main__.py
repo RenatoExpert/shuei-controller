@@ -17,7 +17,7 @@ else:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
 
-class pair {
+class pair:
     def __init__(self, rp, wp):
         self.rp = rp
         self.wp = wp
