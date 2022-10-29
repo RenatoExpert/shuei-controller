@@ -3,7 +3,12 @@ class fakegpio:
     LOW = False
     IN = True
     OUT = False
-    pins = {} 
+    pins = {
+        0 : {
+            'mode': True,
+            'state': True
+         }
+    } 
     def setup (self, pin, mode):
         self.pins[pin] = {'mode':mode, 'state':False}
     def output (self, pin, state):
