@@ -93,7 +93,7 @@ def sync():
             case 'setstate':
                 s.send(b'0')
             case 'revertstate':
-                reverse = !GPIO.input(gpio)
+                reverse = not GPIO.input(gpio)
                 GPIO.output(gpio, reverse)
             case 'rest':
                 pass
