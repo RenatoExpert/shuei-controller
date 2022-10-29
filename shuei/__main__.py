@@ -73,26 +73,27 @@ def sync():
     s.send(bytes(status_send+"\n", 'UTF-8'))
     recpak = s.recv(1024)
     command = json.loads(recpak)
-    cmd = command['cmd']
-    print('Server:', cmd)
-    args = command['args']
-    match cmd:
-        case 'reboot':
-            s.send(b'0')
-        case 'reload':
-            s.send(b'0')
-        case 'upgrade':
-            s.send(
-                bytes(upgrade(),'UTF-8')
-            )
-        case 'setstate':
-            s.send(b'0')
-        case 'revertstate':
-            GPIO.output(args['gpio'])
-        case 'rest':
-            pass
-        case _:
-            raise Exception(f"Unknow command {data}")
+    cmd, args
+    if 'args' in command.keys(): args = command['args']
+    if 'cmd' in command.keys():
+        cmd = command['cmd']
+        match cmd:
+            case 'reboot':
+                s.send(b'0')
+            case 'reload':
+                s.send(b'0')
+            case 'upgrade':
+                s.send(
+                    bytes(upgrade(),'UTF-8')
+                )
+            case 'setstate':
+                s.send(b'0')
+            case 'revertstate':
+                GPIO.output(args['gpio'])
+            case 'rest':
+                pass
+            case _:
+                raise Exception(f"Unknow command {data}")
     s.close()
 
 if __name__ == "__main__":
