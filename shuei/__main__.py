@@ -17,15 +17,18 @@ else:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
 
-readlist= [2, 23, 5]
-writelist= [3, 24, 6]
+class pair {
+    def __init__(self, rp, wp):
+        self.rp = rp
+        self.wp = wp
+        GPIO.setup(rp, GPIO.IN)
+        GPIO.setup(wp, GPIO.OUT)
 
-GPIO.setup(2,GPIO.IN)
-GPIO.setup(3,GPIO.OUT)
-GPIO.setup(23,GPIO.IN)
-GPIO.setup(24,GPIO.OUT)
-GPIO.setup(5,GPIO.IN)
-GPIO.setup(6,GPIO.OUT)
+pairs = [
+    pair(2,3),
+    pair(23,24),
+    pair(5,6)
+]
 
 #from PyAccessPoint import pyaccesspoint
 
@@ -94,8 +97,9 @@ def sync():
             case 'setstate':
                 s.send(b'0')
             case 'revertstate':
-                reverse = not GPIO.input(pair_id)
-                GPIO.output(pair_id, reverse)
+                wpin = pairs[pair_id].wp
+                reverse = not GPIO.input(wpin)
+                GPIO.output(wpin, reverse)
             case 'rest':
                 pass
             case _:
