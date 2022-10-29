@@ -73,7 +73,8 @@ def sync():
     s.send(bytes(status_send+"\n", 'UTF-8'))
     recpak = s.recv(1024)
     command = json.loads(recpak)
-    cmd, args
+    cmd = ''
+    args = {}
     if 'args' in command.keys(): args = command['args']
     if 'cmd' in command.keys():
         cmd = command['cmd']
