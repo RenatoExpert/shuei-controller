@@ -75,6 +75,7 @@ def sync():
     command = json.loads(recpak)
     cmd = command['cmd']
     print('Server:', cmd)
+    args = command['args']
     match cmd:
         case 'reboot':
             s.send(b'0')
@@ -86,6 +87,8 @@ def sync():
             )
         case 'setstate':
             s.send(b'0')
+        case 'revertstate':
+            GPIO.output(args['gpio'])
         case 'rest':
             pass
         case _:
