@@ -16,6 +16,9 @@ else:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
 
+readlist= [2, 23, 5]
+writelist= [3, 24, 6]
+
 GPIO.setup(2,GPIO.IN)
 GPIO.setup(3,GPIO.OUT)
 GPIO.setup(23,GPIO.IN)
@@ -50,10 +53,25 @@ def upgrade():
         print('Error here:', err.errno)
         return f'{err.errno}'
 
+def get_gstatus():
+    gstatus = ''
+    for item in readlist:
+        agregate = '1' if GPIO.input(item) else '0'
+        gstatus += agregate
+    print(gstatus)
+    return gstatus 
+
 def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    gstatus = get_gstatus()
     s.connect((host,port))
-    s.send(b'{ "type":"controller", "uuid":"j324u", "gstatus":"333" }\n')
+    print('how', gstatus)
+    status_send = json.dumps({ 
+        "type":"controller",
+        "uuid":"j324u",
+        "gstatus":gstatus
+    })
+    s.send(bytes(status_send, 'UTF-8'))
     command = json.loads(s.recv(1024).decode('UTF-8'))
     print(command)
     cmd = command['cmd']
@@ -66,10 +84,8 @@ def sync():
             s.send(b'0')
         case 'upgrade':
             s.send(
-                    bytes(upgrade(),'UTF-8')
+                bytes(upgrade(),'UTF-8')
             )
-        case 'getstate':
-            s.send(b'0')
         case 'setstate':
             s.send(b'0')
         case 'rest':
