@@ -60,8 +60,9 @@ def upgrade():
 def get_gstatus():
     gstatus = ''
     for pair in pairs:
-        agregate = '1' if GPIO.input(pair.rp) else '0'
-        gstatus += agregate
+        agregate += 1 if GPIO.input(pair.rp) else 0
+        agregate += 2 if GPIO.input(pair.wp) else 0
+        gstatus += f'{agregate}'
     return gstatus 
 
 def sync():
