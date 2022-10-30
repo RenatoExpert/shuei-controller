@@ -73,7 +73,7 @@ def upgrade():
 def get_gstatus():
     gstatus = ''
     for pair in pairs:
-        agregate = 1 if GPIO.input(pair.rp) == GPIO.HIGH else 0
+        agregate = 0 if GPIO.input(pair.rp) == GPIO.HIGH else 2
         agregate += 2 if GPIO.input(pair.wp) == GPIO.HIGH else 0
         gstatus += f'{agregate}'
     return gstatus 
