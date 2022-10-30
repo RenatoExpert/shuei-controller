@@ -10,6 +10,9 @@ port = 2000
 host = 'shuei.shogunautomacao.com.br'
 #host = 'localhost'
 
+#   Get uuid
+
+
 #   GPIO
 if '--fakegpio' in sys.argv:
     from fakegpio import GPIO
@@ -21,13 +24,16 @@ class pair:
     def __init__(self, rp, wp):
         self.rp = rp
         self.wp = wp
-        GPIO.setup(rp, GPIO.IN)
-        GPIO.setup(wp, GPIO.OUT)
+        self.setup()
+    def setup(self):
+        GPIO.setup(self.rp, GPIO.IN)
+        GPIO.setup(self.wp, GPIO.OUT)
+        GPIO.output(self.wp, GPIO.LOW)
 
 pairs = [
-    pair(2,3),
-    pair(23,24),
-    pair(5,6)
+    pair(2, 3),
+    pair(23, 24),
+    pair(5, 6)
 ]
 
 #from PyAccessPoint import pyaccesspoint
