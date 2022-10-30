@@ -3,6 +3,7 @@ rm -rf shuei-controller	# Ensure no existing repo
 git clone https://github.com/renatoexpert/shuei-controller
 mkdir -p /usr/bin/shuei-controller 
 cp shuei-controller -rv /usr/bin/
+ln -s /usr/bin/shuei-controller/scripts/start.sh /usr/bin/shuei
 echo "Executables installed with success"
 
 pipenv --version || apt install -y python3-venv

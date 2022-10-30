@@ -10,4 +10,4 @@ echo 'Activating virtual enviroment'		&& \
 echo 'Installing dependencies'			&& \
 python3 -m pip install -r \
 	/bin/shuei-controller/requirements.txt	&& \
-python3 shuei
+shuei
