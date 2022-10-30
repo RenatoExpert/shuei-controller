@@ -14,7 +14,7 @@ host = 'shuei.shogunautomacao.com.br'
 def get_uuid():
     cpuinfo = open("/proc/cpuinfo", "r")
     for line in cpuinfo:
-        if 'microcode' in line:
+        if 'Serial' in line:
             return line.split(' ')[-1].split("\n")[0]
             cpuinfo.close()
             break
