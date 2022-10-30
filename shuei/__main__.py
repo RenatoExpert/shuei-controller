@@ -36,6 +36,7 @@ class pair:
         GPIO.setup(self.rp, GPIO.IN)
         GPIO.setup(self.wp, GPIO.OUT)
         GPIO.output(self.wp, GPIO.LOW)
+        GPIO.output(self.rp, GPIO.LOW)
 
 pairs = [
     pair(2, 3),
