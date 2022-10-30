@@ -86,7 +86,7 @@ def sync():
     server = s.connect((host,port))
     status_send = json.dumps({ 
         "type":"controller",
-        "uuid":"j324u",
+        "uuid": uuid,
         "gstatus":gstatus
     })
     s.send(bytes(status_send+"\n", 'UTF-8'))
