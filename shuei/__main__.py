@@ -113,7 +113,7 @@ def sync():
             s.send(b'0')
         elif cmd == 'revertstate':
             wpin = pairs[pair_id].wp
-            reverse = not GPIO.input(wpin)
+            reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
             GPIO.output(wpin, reverse)
             exit_code(0)
         elif cmd == 'rest':
