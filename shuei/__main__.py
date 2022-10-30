@@ -90,20 +90,20 @@ def sync():
         cmd = command['cmd']
         if cmd == 'reboot':
             s.send(b'0')
-        else if cmd == 'reload':
+        elif cmd == 'reload':
             s.send(b'0')
-        else if cmd == 'upgrade':
+        elif cmd == 'upgrade':
             s.send(
                 bytes(upgrade()+"\n",'UTF-8')
             )
-        else if cmd == 'setstate':
+        elif cmd == 'setstate':
             s.send(b'0')
-        else if cmd == 'revertstate':
+        elif cmd == 'revertstate':
             wpin = pairs[pair_id].wp
             reverse = not GPIO.input(wpin)
             GPIO.output(wpin, reverse)
             exit_code(0)
-        else if cmd == 'rest':
+        elif cmd == 'rest':
             pass
         else:
             raise Exception(f"Unknow command {data}")
