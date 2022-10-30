@@ -11,7 +11,14 @@ host = 'shuei.shogunautomacao.com.br'
 #host = 'localhost'
 
 #   Get uuid
-
+def get_uuid():
+    cpuinfo = open("/proc/cpuinfo", "r")
+    for line in cpuinfo:
+        if 'microcode' in line:
+            return line.split(' ')[-1].split("\n")[0]
+            cpuinfo.close()
+            break
+uuid = get_uuid()
 
 #   GPIO
 if '--fakegpio' in sys.argv:
