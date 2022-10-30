@@ -88,26 +88,25 @@ def sync():
             pair_id = int(args['pair_id'])
     if 'cmd' in command.keys():
         cmd = command['cmd']
-        match cmd:
-            case 'reboot':
-                s.send(b'0')
-            case 'reload':
-                s.send(b'0')
-            case 'upgrade':
-                s.send(
-                    bytes(upgrade()+"\n",'UTF-8')
-                )
-            case 'setstate':
-                s.send(b'0')
-            case 'revertstate':
-                wpin = pairs[pair_id].wp
-                reverse = not GPIO.input(wpin)
-                GPIO.output(wpin, reverse)
-                exit_code(0)
-            case 'rest':
-                pass
-            case _:
-                raise Exception(f"Unknow command {data}")
+        if cmd == 'reboot':
+            s.send(b'0')
+        else if cmd == 'reload':
+            s.send(b'0')
+        else if cmd == 'upgrade':
+            s.send(
+                bytes(upgrade()+"\n",'UTF-8')
+            )
+        else if cmd == 'setstate':
+            s.send(b'0')
+        else if cmd == 'revertstate':
+            wpin = pairs[pair_id].wp
+            reverse = not GPIO.input(wpin)
+            GPIO.output(wpin, reverse)
+            exit_code(0)
+        else if cmd == 'rest':
+            pass
+        else:
+            raise Exception(f"Unknow command {data}")
     s.close()
 
 
