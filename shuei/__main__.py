@@ -100,6 +100,7 @@ def sync():
     while True:
         recpak = server.recv(1024)
         command = json.loads(recpak)
+        print(f'Received from server {command}')
         if 'args' in command.keys():
             args = command['args']
             if 'pair_id' in args.keys():
@@ -124,6 +125,7 @@ def sync():
                 raise Exception(f"Unknow command {data}")
                 server.close()
                 break
+        print('Done with success, updating gpio_status')
         update_status()
 
 
