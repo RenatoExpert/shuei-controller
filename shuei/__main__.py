@@ -84,8 +84,6 @@ def get_gstatus():
 
 def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    def exit_code(arg):
-        s.send(bytes(f'{arg}\n', 'UTF-8'))
     gstatus = get_gstatus()
     server = s.connect((host,port))
     status_send = json.dumps({ 
