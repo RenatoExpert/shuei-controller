@@ -1,9 +1,4 @@
-import socket
-import os
-import time
-import json
-import subprocess
-import sys
+import socket, os, time, json, subprocess, sys
 
 #   Server
 port = 2000
@@ -74,13 +69,13 @@ def upgrade():
         print('Error here:', err.errno)
         return f'{err.errno}'
 
-def get_gstatus():
-    gstatus = ''
+def get_gpio_status():
+    gpio_status = ''
     for pair in pairs:
         agregate = 0 if GPIO.input(pair.rp) == GPIO.HIGH else 2
         agregate += 2 if GPIO.input(pair.wp) == GPIO.HIGH else 0
-        gstatus += f'{agregate}'
-    return gstatus 
+        gpio_status += f'{agregate}'
+    return gpio_status 
 
 def update_status():
     gpio_status = get_gpio_status()
