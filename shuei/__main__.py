@@ -93,38 +93,40 @@ def sync():
         "uuid": uuid,
         "gstatus":gstatus
     })
-    s.send(bytes(status_send+"\n", 'UTF-8'))
-    recpak = s.recv(1024)
-    command = json.loads(recpak)
-    cmd = ''
-    args = {}
-    pair_id = ''
-    if 'args' in command.keys():
-        args = command['args']
-        if 'pair_id' in args.keys():
-            pair_id = int(args['pair_id'])
-    if 'cmd' in command.keys():
-        cmd = command['cmd']
-        if cmd == 'reboot':
-            s.send(b'0')
-        elif cmd == 'reload':
-            s.send(b'0')
-        elif cmd == 'upgrade':
-            s.send(
-                bytes(upgrade()+"\n",'UTF-8')
-            )
-        elif cmd == 'setstate':
-            s.send(b'0')
-        elif cmd == 'revertstate':
-            wpin = pairs[pair_id].wp
-            reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
-            GPIO.output(wpin, reverse)
-            exit_code(0)
-        elif cmd == 'rest':
-            pass
-        else:
-            raise Exception(f"Unknow command {data}")
-    s.close()
+    while True:
+        s.send(bytes(status_send+"\n", 'UTF-8'))
+        recpak = s.recv(1024)
+        command = json.loads(recpak)
+        cmd = ''
+        args = {}
+        pair_id = ''
+        if 'args' in command.keys():
+            args = command['args']
+            if 'pair_id' in args.keys():
+                pair_id = int(args['pair_id'])
+        if 'cmd' in command.keys():
+            cmd = command['cmd']
+            if cmd == 'reboot':
+                s.send(b'0')
+            elif cmd == 'reload':
+                s.send(b'0')
+            elif cmd == 'upgrade':
+                s.send(
+                    bytes(upgrade()+"\n",'UTF-8')
+                )
+            elif cmd == 'setstate':
+                s.send(b'0')
+            elif cmd == 'revertstate':
+                wpin = pairs[pair_id].wp
+                reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
+                GPIO.output(wpin, reverse)
+                exit_code(0)
+            elif cmd == 'rest':
+                pass
+            else:
+                raise Exception(f"Unknow command {data}")
+                s.close()
+                break
 
 
 if __name__ == "__main__":
