@@ -3,6 +3,7 @@ import socket, os, time, json, subprocess, sys
 #   Server
 port = 2000
 host = 'shuei.shogunautomacao.com.br'
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #host = 'localhost'
 
 #   Get uuid
@@ -85,7 +86,6 @@ def update_status():
     s.send(bytes(status_send+"\n", 'UTF-8'))
 
 def sync():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server = s.connect((host,port))
     hello_send = json.dumps({ 
         "type": "controller",
