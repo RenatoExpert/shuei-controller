@@ -99,9 +99,6 @@ def sync():
     while True:
         recpak = server.recv(1024)
         command = json.loads(recpak)
-        cmd = ''
-        args = {}
-        pair_id = ''
         if 'args' in command.keys():
             args = command['args']
             if 'pair_id' in args.keys():
