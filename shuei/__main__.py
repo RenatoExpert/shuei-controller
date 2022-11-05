@@ -126,6 +126,7 @@ def sync():
                 raise Exception(f"Unknow command {data}")
                 server.close()
                 break
+        update_status()
 
 
 if __name__ == "__main__":
