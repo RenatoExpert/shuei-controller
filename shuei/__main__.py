@@ -90,6 +90,7 @@ def sync():
     global server
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.connect((host,port))
+    print('Connected')
     hello_send = json.dumps({ 
         "type": "controller",
         "uuid": uuid
@@ -99,6 +100,7 @@ def sync():
     while True:
         recpak = server.recv(1024)
         command = json.loads(recpak)
+        print(f'Received from server {command}')
         if 'args' in command.keys():
             args = command['args']
             if 'pair_id' in args.keys():
@@ -106,26 +108,25 @@ def sync():
         if 'cmd' in command.keys():
             cmd = command['cmd']
             if cmd == 'reboot':
-                server.send(b'0')
+                pass
             elif cmd == 'reload':
-                server.send(b'0')
+                pass
             elif cmd == 'upgrade':
-                server.send(
-                    bytes(upgrade()+"\n",'UTF-8')
-                )
+                pass
             elif cmd == 'setstate':
-                server.send(b'0')
+                pass
             elif cmd == 'revertstate':
                 wpin = pairs[pair_id].wp
                 reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
                 GPIO.output(wpin, reverse)
-                exit_code(0)
             elif cmd == 'rest':
                 pass
             else:
                 raise Exception(f"Unknow command {data}")
                 server.close()
                 break
+        print('Done with success, updating gpio_status')
+        update_status()
 
 
 if __name__ == "__main__":
