@@ -137,6 +137,6 @@ if __name__ == "__main__":
         except Exception as err:
             print("Unknown error", err)
         finally:
-            time.sleep(0.1)
+            time.sleep(1)
 
 
