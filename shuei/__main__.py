@@ -82,17 +82,23 @@ def get_gstatus():
         gstatus += f'{agregate}'
     return gstatus 
 
+def update_status():
+    gpio_status = get_gpio_status()
+    status_send = json.dumps({ 
+        "gpio_status": gpio_status
+    })
+    s.send(bytes(status_send+"\n", 'UTF-8'))
+
 def sync():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    gstatus = get_gstatus()
     server = s.connect((host,port))
-    status_send = json.dumps({ 
-        "type":"controller",
-        "uuid": uuid,
-        "gstatus":gstatus
+    hello_send = json.dumps({ 
+        "type": "controller",
+        "uuid": uuid
     })
+    s.send(bytes(hello_send+"\n", 'UTF-8'))
+    update_status()
     while True:
-        s.send(bytes(status_send+"\n", 'UTF-8'))
         recpak = s.recv(1024)
         command = json.loads(recpak)
         cmd = ''
