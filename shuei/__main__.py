@@ -3,7 +3,7 @@ import socket, os, time, json, subprocess, sys
 #   Server
 port = 2000
 host = 'shuei.shogunautomacao.com.br'
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server = None # This is a rebuildable socket
 #host = 'localhost'
 
 #   Get uuid
@@ -83,18 +83,19 @@ def update_status():
     status_send = json.dumps({ 
         "gpio_status": gpio_status
     })
-    s.send(bytes(status_send+"\n", 'UTF-8'))
+    server.send(bytes(status_send+"\n", 'UTF-8'))
 
 def sync():
-    server = s.connect((host,port))
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.connect((host,port))
     hello_send = json.dumps({ 
         "type": "controller",
         "uuid": uuid
     })
-    s.send(bytes(hello_send+"\n", 'UTF-8'))
+    server.send(bytes(hello_send+"\n", 'UTF-8'))
     update_status()
     while True:
-        recpak = s.recv(1024)
+        recpak = server.recv(1024)
         command = json.loads(recpak)
         cmd = ''
         args = {}
@@ -106,15 +107,15 @@ def sync():
         if 'cmd' in command.keys():
             cmd = command['cmd']
             if cmd == 'reboot':
-                s.send(b'0')
+                server.send(b'0')
             elif cmd == 'reload':
-                s.send(b'0')
+                server.send(b'0')
             elif cmd == 'upgrade':
-                s.send(
+                server.send(
                     bytes(upgrade()+"\n",'UTF-8')
                 )
             elif cmd == 'setstate':
-                s.send(b'0')
+                server.send(b'0')
             elif cmd == 'revertstate':
                 wpin = pairs[pair_id].wp
                 reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
@@ -124,7 +125,7 @@ def sync():
                 pass
             else:
                 raise Exception(f"Unknow command {data}")
-                s.close()
+                server.close()
                 break
 
 
