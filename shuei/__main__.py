@@ -90,6 +90,7 @@ def sync():
     global server
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.connect((host,port))
+    print('Connected')
     hello_send = json.dumps({ 
         "type": "controller",
         "uuid": uuid
