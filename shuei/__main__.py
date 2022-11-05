@@ -106,20 +106,17 @@ def sync():
         if 'cmd' in command.keys():
             cmd = command['cmd']
             if cmd == 'reboot':
-                server.send(b'0')
+                pass
             elif cmd == 'reload':
-                server.send(b'0')
+                pass
             elif cmd == 'upgrade':
-                server.send(
-                    bytes(upgrade()+"\n",'UTF-8')
-                )
+                pass
             elif cmd == 'setstate':
-                server.send(b'0')
+                pass
             elif cmd == 'revertstate':
                 wpin = pairs[pair_id].wp
                 reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
                 GPIO.output(wpin, reverse)
-                exit_code(0)
             elif cmd == 'rest':
                 pass
             else:
