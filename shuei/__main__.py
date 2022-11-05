@@ -1,13 +1,9 @@
-import socket
-import os
-import time
-import json
-import subprocess
-import sys
+import socket, os, time, json, subprocess, sys
 
 #   Server
 port = 2000
 host = 'shuei.shogunautomacao.com.br'
+server = None # This is a rebuildable socket
 #host = 'localhost'
 
 #   Get uuid
@@ -74,57 +70,62 @@ def upgrade():
         print('Error here:', err.errno)
         return f'{err.errno}'
 
-def get_gstatus():
-    gstatus = ''
+def get_gpio_status():
+    gpio_status = ''
     for pair in pairs:
         agregate = 0 if GPIO.input(pair.rp) == GPIO.HIGH else 2
         agregate += 2 if GPIO.input(pair.wp) == GPIO.HIGH else 0
-        gstatus += f'{agregate}'
-    return gstatus 
+        gpio_status += f'{agregate}'
+    return gpio_status 
+
+def update_status():
+    global server
+    gpio_status = get_gpio_status()
+    status_send = json.dumps({ 
+        "gpio_status": gpio_status
+    })
+    server.send(bytes(status_send+"\n", 'UTF-8'))
 
 def sync():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    def exit_code(arg):
-        s.send(bytes(f'{arg}\n', 'UTF-8'))
-    gstatus = get_gstatus()
-    server = s.connect((host,port))
-    status_send = json.dumps({ 
-        "type":"controller",
-        "uuid": uuid,
-        "gstatus":gstatus
+    global server
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.connect((host,port))
+    hello_send = json.dumps({ 
+        "type": "controller",
+        "uuid": uuid
     })
-    s.send(bytes(status_send+"\n", 'UTF-8'))
-    recpak = s.recv(1024)
-    command = json.loads(recpak)
-    cmd = ''
-    args = {}
-    pair_id = ''
-    if 'args' in command.keys():
-        args = command['args']
-        if 'pair_id' in args.keys():
-            pair_id = int(args['pair_id'])
-    if 'cmd' in command.keys():
-        cmd = command['cmd']
-        if cmd == 'reboot':
-            s.send(b'0')
-        elif cmd == 'reload':
-            s.send(b'0')
-        elif cmd == 'upgrade':
-            s.send(
-                bytes(upgrade()+"\n",'UTF-8')
-            )
-        elif cmd == 'setstate':
-            s.send(b'0')
-        elif cmd == 'revertstate':
-            wpin = pairs[pair_id].wp
-            reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
-            GPIO.output(wpin, reverse)
-            exit_code(0)
-        elif cmd == 'rest':
-            pass
-        else:
-            raise Exception(f"Unknow command {data}")
-    s.close()
+    server.send(bytes(hello_send+"\n", 'UTF-8'))
+    update_status()
+    while True:
+        recpak = server.recv(1024)
+        command = json.loads(recpak)
+        if 'args' in command.keys():
+            args = command['args']
+            if 'pair_id' in args.keys():
+                pair_id = int(args['pair_id'])
+        if 'cmd' in command.keys():
+            cmd = command['cmd']
+            if cmd == 'reboot':
+                server.send(b'0')
+            elif cmd == 'reload':
+                server.send(b'0')
+            elif cmd == 'upgrade':
+                server.send(
+                    bytes(upgrade()+"\n",'UTF-8')
+                )
+            elif cmd == 'setstate':
+                server.send(b'0')
+            elif cmd == 'revertstate':
+                wpin = pairs[pair_id].wp
+                reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
+                GPIO.output(wpin, reverse)
+                exit_code(0)
+            elif cmd == 'rest':
+                pass
+            else:
+                raise Exception(f"Unknow command {data}")
+                server.close()
+                break
 
 
 if __name__ == "__main__":
