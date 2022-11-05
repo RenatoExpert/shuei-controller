@@ -79,6 +79,7 @@ def get_gpio_status():
     return gpio_status 
 
 def update_status():
+    global server
     gpio_status = get_gpio_status()
     status_send = json.dumps({ 
         "gpio_status": gpio_status
@@ -86,6 +87,7 @@ def update_status():
     server.send(bytes(status_send+"\n", 'UTF-8'))
 
 def sync():
+    global server
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.connect((host,port))
     hello_send = json.dumps({ 
