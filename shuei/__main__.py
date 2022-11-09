@@ -2,9 +2,6 @@ import socket, os, time, json, subprocess, sys
 
 raw_config = open('config.json', 'r').read()
 config = json.loads(raw_config)
-print(config)
-for gadget in config['gadgets']:
-	print(gadget)
 
 #   Server
 host = config['host']
@@ -32,8 +29,8 @@ else:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
 
-class pair:
-    def __init__(self, rp, wp):
+class gadget:
+    def __init__(self, name, rp, wp):
         self.rp = rp
         self.wp = wp
         self.setup()
@@ -42,12 +39,14 @@ class pair:
         GPIO.setup(self.wp, GPIO.OUT)
         GPIO.output(self.wp, GPIO.LOW)
 
-pairs = [
-    pair(2, 3),
-    pair(23, 24),
-    pair(5, 6)
+gadgets = [
+	gadget(
+		gconf,
+		config['gadgets'][gconf]['read'],
+		config['gadgets'][gconf]['write']
+	)
+	for gconf in config['gadgets']
 ]
-
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
