@@ -4,17 +4,17 @@
 	"gadgets": {
 		"Light": {
 			"mode": "xor",
-			"theme": "light",
+			"theme": "light"
 		},
 		"Lock": {
 			"mode": "or",
-			"theme": "lock",
+			"theme": "lock"
 		},
 		"Motor": {
 			"mode": "and",
-			"theme": "build",
-		},
-	},
+			"theme": "build"
+		}
+	}
 }
 
 
