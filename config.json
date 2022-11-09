@@ -1,5 +1,5 @@
 {
-	"server": "shuei.shogunautomacao.com.br",
+	"host": "shuei.shogunautomacao.com.br",
 	"port": "2000",
 	"gadgets": {
 		"Light": {
