@@ -1,10 +1,12 @@
 import socket, os, time, json, subprocess, sys
 
+raw_config = open('config.json', 'r').read()
+config = json.loads(raw_config)
+
 #   Server
-port = 2000
-host = 'shuei.shogunautomacao.com.br'
+host = config['host']
+port = int(config['port'])
 server = None # This is a rebuildable socket
-#host = 'localhost'
 
 #   Get uuid
 if '--fakegpio' in sys.argv:
@@ -27,8 +29,8 @@ else:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
 
-class pair:
-    def __init__(self, rp, wp):
+class gadget:
+    def __init__(self, name, rp, wp):
         self.rp = rp
         self.wp = wp
         self.setup()
@@ -37,12 +39,14 @@ class pair:
         GPIO.setup(self.wp, GPIO.OUT)
         GPIO.output(self.wp, GPIO.LOW)
 
-pairs = [
-    pair(2, 3),
-    pair(23, 24),
-    pair(5, 6)
+gadgets = [
+	gadget(
+		gconf,
+		config['gadgets'][gconf]['read'],
+		config['gadgets'][gconf]['write']
+	)
+	for gconf in config['gadgets']
 ]
-
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
@@ -72,9 +76,9 @@ def upgrade():
 
 def get_gpio_status():
     gpio_status = ''
-    for pair in pairs:
-        agregate = 0 if GPIO.input(pair.rp) == GPIO.HIGH else 2
-        agregate += 2 if GPIO.input(pair.wp) == GPIO.HIGH else 0
+    for gadget in gadgets:
+        agregate = 0 if GPIO.input(gadget.rp) == GPIO.HIGH else 2
+        agregate += 2 if GPIO.input(gadget.wp) == GPIO.HIGH else 0
         gpio_status += f'{agregate}'
     return gpio_status 
 
@@ -116,7 +120,7 @@ def sync():
             elif cmd == 'setstate':
                 pass
             elif cmd == 'revertstate':
-                wpin = pairs[pair_id].wp
+                wpin = gadgets[pair_id].wp
                 reverse = GPIO.HIGH if GPIO.input(wpin) == GPIO.LOW else GPIO.LOW
                 GPIO.output(wpin, reverse)
             elif cmd == 'rest':
@@ -139,5 +143,4 @@ if __name__ == "__main__":
             print("Unknown error", err)
         finally:
             time.sleep(1)
-
 

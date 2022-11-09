@@ -1,0 +1,26 @@
+{
+	"host": "shuei.shogunautomacao.com.br",
+	"port": "2000",
+	"gadgets": {
+		"Light": {
+			"mode": "xor",
+			"theme": "light",
+			"read": "2",
+			"write": "3"
+		},
+		"Lock": {
+			"mode": "or",
+			"theme": "lock",
+			"read": "23",
+			"write": "24"
+		},
+		"Motor": {
+			"mode": "and",
+			"theme": "build",
+			"read": "5",
+			"write": "6"
+		}
+	}
+}
+
+
