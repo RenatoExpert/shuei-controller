@@ -1,10 +1,12 @@
-import socket, os, time, json, subprocess, sys
+import socket, os, time, json, subprocess, sys, configparser
 
+config = configparser.ConfigParser()
+config.read('config.ini')
+print(config.sections())
 #   Server
-port = 2000
-host = 'shuei.shogunautomacao.com.br'
+host = config['Network']['server']
+port = int(config['Network']['port'])
 server = None # This is a rebuildable socket
-#host = 'localhost'
 
 #   Get uuid
 if '--fakegpio' in sys.argv:
