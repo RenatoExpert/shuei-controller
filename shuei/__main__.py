@@ -1,11 +1,14 @@
-import socket, os, time, json, subprocess, sys, configparser
+import socket, os, time, json, subprocess, sys
 
-config = configparser.ConfigParser()
-config.read('config.ini')
-print(config.sections())
+raw_config = open('config.json', 'r').read()
+config = json.loads(raw_config)
+print(test)
+#for gadget in config['Gadgets']:
+#	print(gadget)
+
 #   Server
 host = config['Network']['server']
-port = int(config['Network']['port'])
+#port = int(config['Network']['port'])
 server = None # This is a rebuildable socket
 
 #   Get uuid
@@ -141,5 +144,4 @@ if __name__ == "__main__":
             print("Unknown error", err)
         finally:
             time.sleep(1)
-
 
