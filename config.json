@@ -1,15 +1,20 @@
-[Network]
-server = shuei.shogunautomacao.com.br
-port = 2000
-
-[Gadgets]
-	[Light]
-		mode = xor
-		theme = light
-	[Lock]
-		mode = or
-		theme = lock
-	[Motor]
-		mode = and
+{
+	"server": "shuei.shogunautomacao.com.br",
+	"port": "2000",
+	"gadgets": {
+		"Light": {
+			"mode": "xor",
+			"theme": "light",
+		},
+		"Lock": {
+			"mode": "or",
+			"theme": "lock",
+		},
+		"Motor": {
+			"mode": "and",
+			"theme": "build",
+		},
+	},
+}
 
 
