@@ -2,13 +2,13 @@ import socket, os, time, json, subprocess, sys
 
 raw_config = open('config.json', 'r').read()
 config = json.loads(raw_config)
-print(test)
-#for gadget in config['Gadgets']:
-#	print(gadget)
+print(config)
+for gadget in config['gadgets']:
+	print(gadget)
 
 #   Server
-host = config['Network']['server']
-#port = int(config['Network']['port'])
+host = config['host']
+port = int(config['port'])
 server = None # This is a rebuildable socket
 
 #   Get uuid
