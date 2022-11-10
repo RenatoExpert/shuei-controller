@@ -29,24 +29,17 @@ else:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
 
-class gadget:
-    def __init__(self, name, rp, wp):
-        self.rp = rp
-        self.wp = wp
-        self.setup()
-    def setup(self):
-        GPIO.setup(self.rp, GPIO.IN)
-        GPIO.setup(self.wp, GPIO.OUT)
-        GPIO.output(self.wp, GPIO.LOW)
-
 gadgets = {
-	gconf:gadget(
-		gconf,
-		config['gadgets'][gconf]['read'],
-		config['gadgets'][gconf]['write']
-	)
+	gconf: {
+		'name':gconf,
+		'rp':config['gadgets'][gconf]['read'],
+		'wp':config['gadgets'][gconf]['write'],
+		'mode':config['gadgets'][gconf]['mode'],
+		'theme':config['gadgets'][gconf]['theme']
+	}
 	for gconf in config['gadgets']
 }
+
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
@@ -74,21 +67,22 @@ def upgrade():
         print('Error here:', err.errno)
         return f'{err.errno}'
 
-def get_gpio_status():
-    gpio_status = ''
-    for gadget in gadgets:
-        agregate = 0 if GPIO.input(gadget.rp) == GPIO.HIGH else 2
-        agregate += 2 if GPIO.input(gadget.wp) == GPIO.HIGH else 0
-        gpio_status += f'{agregate}'
-    return gpio_status 
+def get_status():
+	gpio_status = {}
+	for gadget in gadgets:
+		gpio_status[gadget] = {
+			'sensor': str(GPIO.input(gadgets[gadget]['rp'])),
+			'relay': str(GPIO.input(gadgets[gadget]['wp'])),
+			'mode': gadgets[gadget]['mode'],
+			'theme': gadgets[gadget]['theme']
+		}
+	return gpio_status
 
 def update_status():
-    global server
-    gpio_status = get_gpio_status()
-    status_send = json.dumps({ 
-        "gpio_status": gpio_status
-    })
-    server.send(bytes(status_send+"\n", 'UTF-8'))
+	global server
+	status_send = json.dumps(get_status())
+	print(status_send)
+	server.send(bytes(status_send+"\n", 'UTF-8'))
 
 def sync():
     global server
