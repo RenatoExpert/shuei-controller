@@ -67,21 +67,21 @@ def upgrade():
 
 def get_status():
 	gpio_status = {}
-	print(gpio_status)
 	for gadget in gadgets:
-		print(gadget)
 		gpio_status[gadget] = {
-			'sensor': "{GPIO.input(gadgets[gadget]['rp'])}",
-			'relay': "{GPIO.input(gadgets[gadget]['wp'])}",
-			'mode': "{gadgets[gadget]['mode']}",
-			'theme': "{gadgets[gadget]['theme']}"
+			'sensor': str(GPIO.input(gadgets[gadget]['rp'])),
+			'relay': str(GPIO.input(gadgets[gadget]['wp'])),
+			'mode': str(gadgets[gadget]['mode']),
+			'theme': str(gadgets[gadget]['theme'])
 		}
+	print(gpio_status)
 	return gpio_status
 
 def update_status():
-    global server
-    status_send = json.dumps(get_status())
-    server.send(bytes(status_send+"\n", 'UTF-8'))
+	global server
+	status_send = json.dumps(get_status())
+	print(status_send)
+	server.send(bytes(status_send+"\n", 'UTF-8'))
 
 def sync():
     global server
