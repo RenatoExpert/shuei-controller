@@ -40,11 +40,11 @@ class gadget:
         GPIO.output(self.wp, GPIO.LOW)
 
 gadgets = {
-	gconf:gadget(
-		gconf,
-		config['gadgets'][gconf]['read'],
-		config['gadgets'][gconf]['write']
-	)
+	gconf: {
+		'name':gconf,
+		'rp':config['gadgets'][gconf]['read'],
+		'wp':config['gadgets'][gconf]['write']
+	}
 	for gconf in config['gadgets']
 }
 #from PyAccessPoint import pyaccesspoint
