@@ -15,5 +15,6 @@ class fakegpio:
         if self.pins[pin]['mode']: raise f'Pin {pin} is not set as output!'
         else: self.pins[pin]['state'] = state
     def input (self, pin):
-        return self.pins[pin]['state']
+        #return self.pins[pin]['state']
+        return True
 GPIO = fakegpio()
