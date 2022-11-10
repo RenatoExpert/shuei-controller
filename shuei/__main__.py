@@ -85,9 +85,7 @@ def get_gpio_status():
 def update_status():
     global server
     gpio_status = get_gpio_status()
-    status_send = json.dumps({ 
-        "gpio_status": gpio_status
-    })
+    status_send = json.dumps(gadgets)
     server.send(bytes(status_send+"\n", 'UTF-8'))
 
 def sync():
