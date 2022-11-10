@@ -33,7 +33,9 @@ gadgets = {
 	gconf: {
 		'name':gconf,
 		'rp':config['gadgets'][gconf]['read'],
-		'wp':config['gadgets'][gconf]['write']
+		'wp':config['gadgets'][gconf]['write'],
+		'mode':config['gadgets'][gconf]['mode'],
+		'theme':config['gadgets'][gconf]['theme']
 	}
 	for gconf in config['gadgets']
 }
@@ -67,12 +69,13 @@ def upgrade():
 
 def get_status():
 	gpio_status = {}
+	print(gadgets)
 	for gadget in gadgets:
 		gpio_status[gadget] = {
 			'sensor': str(GPIO.input(gadgets[gadget]['rp'])),
 			'relay': str(GPIO.input(gadgets[gadget]['wp'])),
-			'mode': str(gadgets[gadget]['mode']),
-			'theme': str(gadgets[gadget]['theme'])
+			'mode': gadgets[gadget]['mode'],
+			'theme': gadgets[gadget]['theme']
 		}
 	print(gpio_status)
 	return gpio_status
