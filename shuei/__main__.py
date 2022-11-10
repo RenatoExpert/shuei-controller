@@ -37,6 +37,7 @@ gadgets = {
 	}
 	for gconf in config['gadgets']
 }
+
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
@@ -64,9 +65,22 @@ def upgrade():
         print('Error here:', err.errno)
         return f'{err.errno}'
 
+def get_status():
+	gpio_status = {}
+	print(gpio_status)
+	for gadget in gadgets:
+		print(gadget)
+		gpio_status[gadget] = {
+			'sensor': "{GPIO.input(gadgets[gadget]['rp'])}",
+			'relay': "{GPIO.input(gadgets[gadget]['wp'])}",
+			'mode': "{gadgets[gadget]['mode']}",
+			'theme': "{gadgets[gadget]['theme']}"
+		}
+	return gpio_status
+
 def update_status():
     global server
-    status_send = json.dumps(gadgets)
+    status_send = json.dumps(get_status())
     server.send(bytes(status_send+"\n", 'UTF-8'))
 
 def sync():
