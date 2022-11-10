@@ -39,14 +39,14 @@ class gadget:
         GPIO.setup(self.wp, GPIO.OUT)
         GPIO.output(self.wp, GPIO.LOW)
 
-gadgets = [
-	gadget(
+gadgets = {
+	gconf:gadget(
 		gconf,
 		config['gadgets'][gconf]['read'],
 		config['gadgets'][gconf]['write']
 	)
 	for gconf in config['gadgets']
-]
+}
 #from PyAccessPoint import pyaccesspoint
 
 #   First use: make wireless hotspot
