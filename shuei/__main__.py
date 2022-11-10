@@ -69,7 +69,6 @@ def upgrade():
 
 def get_status():
 	gpio_status = {}
-	print(gadgets)
 	for gadget in gadgets:
 		gpio_status[gadget] = {
 			'sensor': str(GPIO.input(gadgets[gadget]['rp'])),
@@ -77,7 +76,6 @@ def get_status():
 			'mode': gadgets[gadget]['mode'],
 			'theme': gadgets[gadget]['theme']
 		}
-	print(gpio_status)
 	return gpio_status
 
 def update_status():
