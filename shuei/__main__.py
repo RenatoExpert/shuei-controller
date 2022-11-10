@@ -74,17 +74,8 @@ def upgrade():
         print('Error here:', err.errno)
         return f'{err.errno}'
 
-def get_gpio_status():
-    gpio_status = ''
-    for gadget in gadgets:
-        agregate = 0 if GPIO.input(gadget.rp) == GPIO.HIGH else 2
-        agregate += 2 if GPIO.input(gadget.wp) == GPIO.HIGH else 0
-        gpio_status += f'{agregate}'
-    return gpio_status 
-
 def update_status():
     global server
-    gpio_status = get_gpio_status()
     status_send = json.dumps(gadgets)
     server.send(bytes(status_send+"\n", 'UTF-8'))
 
