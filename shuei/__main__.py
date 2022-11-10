@@ -29,16 +29,6 @@ else:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)
 
-class gadget:
-    def __init__(self, name, rp, wp):
-        self.rp = rp
-        self.wp = wp
-        self.setup()
-    def setup(self):
-        GPIO.setup(self.rp, GPIO.IN)
-        GPIO.setup(self.wp, GPIO.OUT)
-        GPIO.output(self.wp, GPIO.LOW)
-
 gadgets = {
 	gconf: {
 		'name':gconf,
